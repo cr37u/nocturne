@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nocturne</string>
+
+    <!-- Common / content descriptions -->
+    <string name="cd_search">Caută</string>
+    <string name="cd_settings">Setări</string>
+    <string name="cd_play">Redă</string>
+    <string name="cd_pause">Pauză</string>
+    <string name="cd_next">Următoarea</string>
+    <string name="cd_previous">Anterioara</string>
+    <string name="cd_shuffle">Amestecă</string>
+    <string name="cd_more">Mai multe</string>
+    <string name="cd_close">Închide</string>
+    <string name="cd_back">Înapoi</string>
+    <string name="cd_clear">Șterge textul</string>
+    <string name="cd_volume">Volum</string>
+    <string name="cd_queue">Coada de redare</string>
+    <string name="cd_favorite">Favorite</string>
+    <string name="cd_add_to_playlist">Adaugă în playlist</string>
+    <string name="cd_drag">Mută</string>
+    <string name="cd_done">Finalizat</string>
+    <string name="cd_play_playlist">Redă playlistul</string>
+    <string name="cd_remove">Elimină</string>
+    <string name="cd_logo">Logo Nocturne</string>
+    <string name="cd_close_search">Închide căutarea</string>
+
+    <!-- Library -->
+    <string name="link_placeholder">Lipește un link YouTube…</string>
+    <string name="paste">Lipește</string>
+    <string name="tab_songs">Melodii</string>
+    <string name="tab_playlists">Playlisturi</string>
+    <string name="tab_downloads">Descărcări</string>
+    <string name="sort_recent">Recent adăugate</string>
+    <string name="sort_title">Titlu (A–Z)</string>
+    <string name="sort_duration">Durată</string>
+    <string name="play_all">Redă tot</string>
+    <string name="shuffle_all">Amestecă tot</string>
+    <string name="search_placeholder">Caută în bibliotecă…</string>
+    <string name="library_empty_title">Biblioteca e goală</string>
+    <string name="library_empty_body">Lipește un link YouTube (video sau playlist) ca să descarci muzică. Totul se redă apoi offline.</string>
+    <string name="search_empty">Nicio melodie găsită</string>
+    <string name="clipboard_found">Link YouTube găsit în clipboard</string>
+    <string name="clipboard_add">Adaugă</string>
+    <string name="clipboard_empty">Clipboardul nu conține un link YouTube</string>
+
+    <!-- Track menu -->
+    <string name="menu_play_next">Redă următoarea</string>
+    <string name="menu_add_queue">Adaugă în coadă</string>
+    <string name="menu_add_playlist">Adaugă în playlist</string>
+    <string name="menu_favorite_add">Adaugă la Favorite</string>
+    <string name="menu_favorite_remove">Elimină din Favorite</string>
+    <string name="menu_delete">Șterge melodia</string>
+    <string name="menu_remove_from_playlist">Elimină din playlist</string>
+    <string name="delete_track_title">Ștergi melodia?</string>
+    <string name="delete_track_body">„%1$s” va fi ștearsă de pe telefon.</string>
+    <string name="delete">Șterge</string>
+    <string name="cancel">Anulează</string>
+    <string name="save">Salvează</string>
+    <string name="create">Creează</string>
+    <string name="track_deleted">Melodie ștearsă</string>
+    <string name="added_to_playlist">Adăugată în „%1$s”</string>
+    <string name="added_to_queue">Adăugată în coadă</string>
+    <string name="playing_next">Se redă următoarea</string>
+
+    <!-- Playlists -->
+    <string name="playlists_title">Playlisturi</string>
+    <string name="new_playlist">Nou</string>
+    <string name="from_youtube">Din YouTube</string>
+    <string name="favorites">Favorite</string>
+    <string name="new_playlist_title">Playlist nou</string>
+    <string name="rename_playlist_title">Redenumește playlistul</string>
+    <string name="playlist_name_hint">Numele playlistului</string>
+    <string name="rename">Redenumește</string>
+    <string name="delete_playlist">Șterge playlistul</string>
+    <string name="delete_playlist_title">Ștergi playlistul?</string>
+    <string name="delete_playlist_body">Melodiile rămân în bibliotecă.</string>
+    <string name="playlists_empty">Niciun playlist încă. Creează unul sau importă un playlist YouTube.</string>
+    <string name="playlist_empty">Playlistul e gol</string>
+    <string name="choose_playlist">Alege playlistul</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Se redă acum</string>
+    <string name="playing_from_playlist">SE REDĂ DIN PLAYLIST</string>
+    <string name="playing_from_library">SE REDĂ DIN BIBLIOTECĂ</string>
+    <string name="all_songs">Toate melodiile</string>
+    <string name="queue">Coada de redare</string>
+    <string name="queue_empty">Coada e goală</string>
+
+    <!-- Add music -->
+    <string name="add_music">Adaugă muzică</string>
+    <string name="link_label">Link video sau playlist YouTube</string>
+    <string name="playlist_detected">PLAYLIST DETECTAT</string>
+    <string name="video_detected">VIDEO DETECTAT</string>
+    <string name="resolving">Se analizează linkul…</string>
+    <string name="already_in_library">%1$d deja în bibliotecă</string>
+    <string name="download_new">Descarcă %1$d melodii noi</string>
+    <string name="download_one">Descarcă melodia</string>
+    <string name="all_in_library">Toate melodiile sunt deja în bibliotecă</string>
+    <string name="downloads">Descărcări</string>
+    <string name="downloads_stats">%1$d din %2$d · %3$d în paralel · %4$s</string>
+    <string name="pause_all">Pauză tot</string>
+    <string name="resume_all">Reia tot</string>
+    <string name="clear_finished">Curăță lista</string>
+    <string name="status_done">Gata</string>
+    <string name="status_failed">Eșuat</string>
+    <string name="status_queued">În așteptare</string>
+    <string name="status_paused">În pauză</string>
+    <string name="status_preparing">Se pregătește…</string>
+    <string name="retry">Reîncearcă</string>
+    <string name="attempt">încercarea %1$d/%2$d</string>
+    <string name="downloads_empty">Nicio descărcare. Lipește un link YouTube ca să începi.</string>
+    <string name="added_to_downloads">%1$d melodii adăugate la descărcări</string>
+    <string name="add">Adaugă</string>
+    <string name="import_playlist">Importă playlistul</string>
+    <string name="playlist_imported">Playlist importat în bibliotecă</string>
+
+    <!-- Errors -->
+    <string name="error_invalid_link">Link invalid. Folosește un link YouTube de video sau playlist.</string>
+    <string name="error_no_internet">Fără internet. Verifică conexiunea și încearcă din nou.</string>
+    <string name="error_unavailable">Video indisponibil</string>
+    <string name="error_age_restricted">Video restricționat (vârstă)</string>
+    <string name="error_geo_restricted">Video restricționat în țara ta</string>
+    <string name="error_private">Video privat</string>
+    <string name="error_paid">Conținut plătit</string>
+    <string name="error_captcha">YouTube cere verificare. Încearcă mai târziu.</string>
+    <string name="error_bot">YouTube a blocat temporar cererile. Încearcă mai târziu.</string>
+    <string name="error_no_audio">Niciun flux audio disponibil</string>
+    <string name="error_storage">Spațiu de stocare insuficient</string>
+    <string name="error_generic">Eroare neașteptată. Încearcă din nou.</string>
+
+    <!-- Settings -->
+    <string name="settings">Setări</string>
+    <string name="settings_playback_section">Redare în fundal</string>
+    <string name="battery_title">Optimizare baterie</string>
+    <string name="battery_on">Nocturne este exceptat – redarea continuă cu ecranul stins.</string>
+    <string name="battery_off">Sistemul poate opri redarea în fundal. Apasă pentru a exclude aplicația.</string>
+    <string name="battery_system_page">Pagina de baterie a sistemului</string>
+    <string name="battery_system_page_body">Deschide setările de optimizare a bateriei</string>
+    <string name="xiaomi_autostart">Pornire automată (Xiaomi)</string>
+    <string name="xiaomi_autostart_body">Permite pornirea automată ca să nu fie oprită muzica.</string>
+    <string name="keep_playing_title">Redare după închiderea aplicației</string>
+    <string name="keep_playing_on">Muzica continuă când închizi aplicația din aplicațiile recente</string>
+    <string name="keep_playing_off">Muzica se oprește când închizi aplicația din aplicațiile recente</string>
+    <string name="notifications_title">Notificări</string>
+    <string name="notifications_on">Activate</string>
+    <string name="notifications_off">Dezactivate – apasă pentru a le activa</string>
+    <string name="storage_title">Stocare</string>
+    <string name="storage_body">%1$s · %2$s</string>
+    <string name="about_section">Despre</string>
+    <string name="app_version">Versiune aplicație</string>
+    <string name="extractor_version">NewPipeExtractor</string>
+
+    <!-- Battery dialog -->
+    <string name="battery_dialog_title">Redare fără întreruperi</string>
+    <string name="battery_dialog_body">Ca muzica să nu se oprească atunci când ecranul e stins sau telefonul economisește bateria, permite-i aplicației Nocturne să ruleze în fundal fără restricții.</string>
+    <string name="battery_dialog_allow">Permite</string>
+    <string name="battery_dialog_later">Mai târziu</string>
+
+    <!-- Notifications -->
+    <string name="channel_playback">Redare</string>
+    <string name="channel_playback_desc">Controale de redare</string>
+    <string name="channel_downloads">Descărcări</string>
+    <string name="channel_downloads_desc">Progresul descărcărilor</string>
+    <string name="notif_downloading">Se descarcă %1$d melodii</string>
+    <string name="notif_downloading_one">Se descarcă 1 melodie</string>
+    <string name="notif_preparing">Se pregătesc descărcările…</string>
+    <string name="notif_subtitle">%1$d din %2$d · %3$s</string>
+    <string name="notif_subtitle_plain">%1$d din %2$d</string>
+    <string name="notif_pause">Pauză</string>
+    <string name="notif_cancel">Anulează</string>
+    <string name="shuffle_on">Amestecare activă</string>
+    <string name="shuffle_off">Amestecare oprită</string>
+    <string name="repeat_off">Repetare oprită</string>
+    <string name="repeat_all">Repetă tot</string>
+    <string name="repeat_one">Repetă una</string>
+
+    <plurals name="songs_count">
+        <item quantity="one">%d melodie</item>
+        <item quantity="few">%d melodii</item>
+        <item quantity="other">%d melodii</item>
+    </plurals>
+</resources>
