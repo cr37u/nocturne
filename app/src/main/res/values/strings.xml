@@ -98,6 +98,7 @@
     <string name="download_one">Descarcă melodia</string>
     <string name="all_in_library">Toate melodiile sunt deja în bibliotecă</string>
     <string name="downloads">Descărcări</string>
+    <string name="downloads_stats_idle">%1$d din %2$d</string>
     <string name="downloads_stats">%1$d din %2$d · %3$d în paralel · %4$s</string>
     <string name="pause_all">Pauză tot</string>
     <string name="resume_all">Reia tot</string>

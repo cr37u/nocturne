@@ -87,7 +87,11 @@ fun LazyListScope.downloadsSection(
                     if (showTitle) Text(stringResource(R.string.downloads), style = NocturneType.Section, color = NocturneColors.TextPrimary)
                     if (stats.total > 0) {
                         Text(
-                            stringResource(R.string.downloads_stats, stats.done, stats.total, stats.active, formatSpeed(stats.bytesPerSecond)),
+                            if (stats.active > 0) {
+                                stringResource(R.string.downloads_stats, stats.done, stats.total, stats.active, formatSpeed(stats.bytesPerSecond))
+                            } else {
+                                stringResource(R.string.downloads_stats_idle, stats.done, stats.total)
+                            },
                             style = NocturneType.Meta,
                             color = NocturneColors.TextSecondary,
                         )
