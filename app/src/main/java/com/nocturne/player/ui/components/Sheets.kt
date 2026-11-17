@@ -100,6 +100,7 @@ fun TrackActionsSheet(
     onToggleFavorite: () -> Unit,
     onDelete: () -> Unit,
     onRemoveFromPlaylist: (() -> Unit)? = null,
+    onEditDetails: (() -> Unit)? = null,
 ) {
     NocturneSheet(onDismiss) {
         Row(Modifier.padding(horizontal = 24.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -120,10 +121,87 @@ fun TrackActionsSheet(
             onToggleFavorite,
             tint = if (track.isFavorite) NocturneColors.Amber else NocturneColors.TextPrimary,
         )
+        if (onEditDetails != null) {
+            SheetAction(Lucide.Pencil, stringResource(R.string.menu_edit_details), onEditDetails)
+        }
         if (onRemoveFromPlaylist != null) {
             SheetAction(Lucide.X, stringResource(R.string.menu_remove_from_playlist), onRemoveFromPlaylist)
         }
         SheetAction(Lucide.Trash, stringResource(R.string.menu_delete), onDelete, tint = NocturneColors.Error)
+    }
+}
+
+/**
+ * "Editează detaliile": edit title and artist (bottom sheet, radius 28). The values are library
+ * data owned by the user; they are never translated or overwritten by later downloads.
+ */
+@Composable
+fun EditTrackSheet(
+    track: TrackEntity,
+    onDismiss: () -> Unit,
+    onSave: (title: String, artist: String) -> Unit,
+) {
+    var title by rememberSaveable(track.id) { mutableStateOf(track.title) }
+    var artist by rememberSaveable(track.id) { mutableStateOf(track.artist) }
+    val canSave = title.isNotBlank()
+    NocturneSheet(onDismiss) {
+        Text(
+            stringResource(R.string.edit_details_title),
+            style = NocturneType.Section,
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+        )
+        EditField(stringResource(R.string.edit_title_label), title, { title = it.take(200) }, ImeAction.Next)
+        EditField(stringResource(R.string.edit_artist_label), artist, { artist = it.take(120) }, ImeAction.Done) {
+            if (canSave) onSave(title.trim(), artist.trim())
+        }
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.cancel), style = NocturneType.Button14, color = NocturneColors.TextSecondary)
+            }
+            TextButton(onClick = { onSave(title.trim(), artist.trim()) }, enabled = canSave) {
+                Text(
+                    stringResource(R.string.save),
+                    style = NocturneType.Button14,
+                    color = if (canSave) NocturneColors.Amber else NocturneColors.TextSecondary,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EditField(
+    label: String,
+    value: String,
+    onChange: (String) -> Unit,
+    ime: ImeAction,
+    onDone: () -> Unit = {},
+) {
+    Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 6.dp)) {
+        Text(label, style = NocturneType.Meta, color = NocturneColors.TextSecondary, modifier = Modifier.padding(start = 4.dp, bottom = 6.dp))
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp)
+                .clip(NocturneShapes.Input)
+                .background(NocturneColors.Surface)
+                .border(1.5.dp, NocturneColors.BrightStart, NocturneShapes.Input)
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onChange,
+                textStyle = NocturneType.Body15.copy(color = NocturneColors.TextPrimary),
+                cursorBrush = SolidColor(NocturneColors.BrightStart),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ime),
+                keyboardActions = KeyboardActions(onDone = { onDone() }),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
 

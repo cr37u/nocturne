@@ -7,7 +7,14 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-/** A downloaded, locally playable track. [id] is the YouTube video id. */
+/**
+ * A downloaded, locally playable track. [id] IS the YouTube video id (primary key), so every
+ * track has its video id and duplicates are detected by it, never by title.
+ *
+ * Title / artist are library data: saved once at download time, never re-fetched or translated.
+ * [userEdited] marks a manual edit ("Editează detaliile") that must never be overwritten.
+ * [searchKey] is the accent/case-insensitive form of title + artist (see SearchKey).
+ */
 @Entity(tableName = "tracks")
 data class TrackEntity(
     @PrimaryKey val id: String,
@@ -21,6 +28,8 @@ data class TrackEntity(
     val addedAt: Long,
     val isFavorite: Boolean = false,
     val sourceUrl: String,
+    @ColumnInfo(defaultValue = "0") val userEdited: Boolean = false,
+    @ColumnInfo(defaultValue = "") val searchKey: String = "",
 )
 
 @Entity(

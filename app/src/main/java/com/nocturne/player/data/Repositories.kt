@@ -72,6 +72,14 @@ class TrackRepository @Inject constructor(
 
     suspend fun setFavorite(id: String, favorite: Boolean) = trackDao.setFavorite(id, favorite)
 
+    /** "Editează detaliile": user-owned title/artist, never overwritten by later downloads. */
+    suspend fun editMetadata(id: String, title: String, artist: String): TrackEntity? {
+        val t = title.trim().ifEmpty { return null }
+        val a = artist.trim()
+        trackDao.updateMetadata(id, t, a, SearchKey.of(t, a))
+        return trackDao.get(id)
+    }
+
     suspend fun toggleFavorite(id: String): Boolean {
         val t = trackDao.get(id) ?: return false
         trackDao.setFavorite(id, !t.isFavorite)

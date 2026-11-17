@@ -40,6 +40,10 @@ interface TrackDao {
     @Query("UPDATE tracks SET isFavorite = :favorite WHERE id = :id")
     suspend fun setFavorite(id: String, favorite: Boolean)
 
+    /** Manual edit: marks the row userEdited so later downloads never overwrite it. */
+    @Query("UPDATE tracks SET title = :title, artist = :artist, searchKey = :searchKey, userEdited = 1 WHERE id = :id")
+    suspend fun updateMetadata(id: String, title: String, artist: String, searchKey: String)
+
     @Query("DELETE FROM tracks WHERE id = :id")
     suspend fun delete(id: String)
 }

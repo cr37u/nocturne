@@ -37,6 +37,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -66,6 +67,7 @@ import com.nocturne.player.ui.PlayerViewModel
 import com.nocturne.player.ui.TrackMenuHost
 import com.nocturne.player.ui.TrackMenuStep
 import com.nocturne.player.ui.components.Artwork
+import com.nocturne.player.ui.components.swipeToSkip
 import com.nocturne.player.ui.components.IconButton44
 import com.nocturne.player.ui.components.NocturneSheet
 import com.nocturne.player.ui.components.NocturneSlider
@@ -98,6 +100,7 @@ fun NowPlayingScreen(
     val track by vm.currentTrack.collectAsStateWithLifecycle()
     val menu = rememberTrackMenu()
     var showQueue by remember { mutableStateOf(false) }
+    var showLyrics by rememberSaveable { mutableStateOf(false) }
     var moreOpen by remember { mutableStateOf(false) }
     var dragFraction by remember { mutableStateOf<Float?>(null) }
 
@@ -167,6 +170,9 @@ fun NowPlayingScreen(
                         MenuRow(Lucide.ListPlus, stringResource(R.string.menu_add_playlist)) {
                             moreOpen = false; track?.let { menu.pickPlaylist(it.id) }
                         }
+                        MenuRow(Lucide.Pencil, stringResource(R.string.menu_edit_details)) {
+                            moreOpen = false; track?.let { menu.editDetails(it) }
+                        }
                         MenuRow(
                             if (track?.isFavorite == true) Lucide.HeartFilled else Lucide.Heart,
                             stringResource(if (track?.isFavorite == true) R.string.menu_favorite_remove else R.string.menu_favorite_add),
@@ -186,6 +192,8 @@ fun NowPlayingScreen(
                     Modifier
                         .aspectRatio(1f, matchHeightConstraintsFirst = true)
                         .graphicsLayer { scaleX = artScale; scaleY = artScale }
+                        // Swipe the cover: left → next, right → previous.
+                        .swipeToSkip(state.hasMedia, onNext = vm::next, onPrevious = vm::previous)
                 ) {
                     Artwork(
                         model = state.artworkUri,
@@ -325,8 +333,21 @@ fun NowPlayingScreen(
                 description = stringResource(R.string.cd_volume),
             )
             Spacer(Modifier.width(8.dp))
+            IconButton44(Lucide.MicVocal, stringResource(R.string.lyrics), onClick = { showLyrics = true }, onGradient = true)
+            Spacer(Modifier.width(8.dp))
             IconButton44(Lucide.ListMusic, stringResource(R.string.cd_queue), onClick = { showQueue = true }, onGradient = true)
         }
+    }
+
+    if (showLyrics && state.mediaId != null) {
+        com.nocturne.player.ui.components.LyricsSheet(
+            trackId = state.mediaId!!,
+            title = state.title,
+            artist = state.artist,
+            positionMs = state.positionMs,
+            onSeek = { ms -> if (state.durationMs > 0) vm.seekTo(ms.toFloat() / state.durationMs) },
+            onDismiss = { showLyrics = false },
+        )
     }
 
     if (showQueue) {

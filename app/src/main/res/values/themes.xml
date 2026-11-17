@@ -2,7 +2,7 @@
 <resources>
     <color name="background">#0A0A14</color>
 
-    <style name="Theme.Nocturne" parent="android:Theme.Material.NoActionBar">
+    <style name="Theme.Nocturne" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

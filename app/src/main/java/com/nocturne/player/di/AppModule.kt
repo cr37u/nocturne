@@ -30,7 +30,9 @@ object AppModule {
     @Provides
     @Singleton
     fun database(@ApplicationContext context: Context): NocturneDatabase =
-        Room.databaseBuilder(context, NocturneDatabase::class.java, "nocturne.db").build()
+        Room.databaseBuilder(context, NocturneDatabase::class.java, "nocturne.db")
+            .addMigrations(*NocturneDatabase.ALL_MIGRATIONS) // never destructive: the library must survive updates
+            .build()
 
     @Provides fun trackDao(db: NocturneDatabase): TrackDao = db.trackDao()
     @Provides fun playlistDao(db: NocturneDatabase): PlaylistDao = db.playlistDao()

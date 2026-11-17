@@ -27,8 +27,28 @@ class NocturneApp : Application(), Configuration.Provider, ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
-        NewPipe.init(NewPipeDownloader(okHttpClient), Localization("ro", "RO"), ContentCountry("RO"))
+        com.nocturne.player.i18n.AppLocale.init(this)
+        // Track metadata must NOT depend on the UI language: NewPipe always uses this fixed
+        // localization, so the title YouTube returns is stable whatever language the app shows.
+        // (Changing it would only affect new downloads; saved titles are never re-fetched.)
+        NewPipe.init(NewPipeDownloader(okHttpClient), METADATA_LOCALIZATION, METADATA_COUNTRY)
         DownloadNotifications.ensureChannel(this)
+    }
+
+    /** Android 13+: the language can also change from system Settings → App languages. */
+    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val before = com.nocturne.player.i18n.AppLocale.locale
+        com.nocturne.player.i18n.AppLocale.init(this)
+        if (before != com.nocturne.player.i18n.AppLocale.locale) {
+            com.nocturne.player.i18n.AppLocale.refreshSystemSurfaces(this)
+        }
+    }
+
+    companion object {
+        /** Fixed, UI-independent YouTube metadata localization (see onCreate). */
+        val METADATA_LOCALIZATION = Localization("ro", "RO")
+        val METADATA_COUNTRY = ContentCountry("RO")
     }
 
     override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)

@@ -172,17 +172,25 @@ class DownloadWorker @AssistedInject constructor(
         }
 
         val thumb = downloadThumbnail(d.videoId, stream.thumbnailUrl ?: d.thumbnailUrl)
+        // Metadata is library data: saved once here (fixed NewPipe localization, see NocturneApp)
+        // and never overwritten afterwards. A manual edit ("Editează detaliile") always wins.
+        val existing = trackDao.get(d.videoId)
+        val title = existing?.takeIf { it.userEdited }?.title ?: d.title.ifBlank { stream.title }
+        val artist = existing?.takeIf { it.userEdited }?.artist ?: d.artist.ifBlank { stream.artist }
         val track = TrackEntity(
             id = d.videoId,
-            title = d.title.ifBlank { stream.title },
-            artist = d.artist.ifBlank { stream.artist },
+            title = title,
+            artist = artist,
             durationMs = if (stream.durationMs > 0) stream.durationMs else d.durationMs,
             filePath = target.absolutePath,
             thumbnailPath = thumb?.absolutePath,
             sizeBytes = target.length(),
             format = stream.formatName,
-            addedAt = System.currentTimeMillis(),
+            addedAt = existing?.addedAt ?: System.currentTimeMillis(),
+            isFavorite = existing?.isFavorite ?: false,
             sourceUrl = d.url,
+            userEdited = existing?.userEdited ?: false,
+            searchKey = com.nocturne.player.data.SearchKey.of(title, artist),
         )
         trackDao.upsert(track)
         d.playlistId?.let { playlists.addTrackAt(it, track.id, d.playlistPosition) }

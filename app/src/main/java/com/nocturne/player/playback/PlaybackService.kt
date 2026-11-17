@@ -82,9 +82,68 @@ class PlaybackService : MediaLibraryService() {
         setMediaNotificationProvider(NocturneNotificationProvider(this))
         restoreQueue()
         startPositionSaver()
+        startWidgetProgress()
+        com.nocturne.player.i18n.AppLocale.prefs(this).registerOnSharedPreferenceChangeListener(languageListener)
+        pushWidget()
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
+
+    // ---------------------------------------------------------------- language & widgets
+
+    /** In-app language change: re-label shuffle/repeat (rebuilds the notification) and widgets. */
+    private val languageListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == com.nocturne.player.i18n.AppLocale.PREF_KEY) onLanguageChanged()
+    }
+
+    /** Android 13+ system "App languages" change. */
+    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
+        super.onConfigurationChanged(newConfig)
+        onLanguageChanged()
+    }
+
+    private fun onLanguageChanged() {
+        com.nocturne.player.i18n.AppLocale.init(this)
+        session?.setCustomLayout(customLayout())
+        pushWidget()
+    }
+
+    /** Snapshot for the home-screen widgets (track, play state, shuffle/repeat, up next). */
+    private fun pushWidget() {
+        if (!::player.isInitialized) return
+        val item = player.currentMediaItem
+        val meta = player.mediaMetadata
+        val nextIndex = player.nextMediaItemIndex
+        val next = if (nextIndex != C.INDEX_UNSET) player.getMediaItemAt(nextIndex).mediaMetadata else null
+        val duration = player.duration.takeIf { it > 0 } ?: (meta.durationMs ?: 0L)
+        com.nocturne.player.widget.NocturneWidgetUpdater.push(
+            this,
+            com.nocturne.player.widget.WidgetState(
+                hasMedia = item != null,
+                title = meta.title?.toString().orEmpty(),
+                artist = meta.artist?.toString().orEmpty(),
+                artworkPath = meta.artworkUri?.path,
+                isPlaying = player.isPlaying,
+                positionMs = player.currentPosition.coerceAtLeast(0),
+                durationMs = duration,
+                shuffle = player.shuffleModeEnabled,
+                repeatMode = player.repeatMode,
+                nextTitle = next?.title?.toString(),
+                nextArtist = next?.artist?.toString(),
+            ),
+        )
+    }
+
+    /** Progress only while playing AND the screen is on — no polling when paused (battery). */
+    private fun startWidgetProgress() {
+        val power = getSystemService(android.os.PowerManager::class.java)
+        scope.launch {
+            while (isActive) {
+                delay(3_000)
+                if (player.isPlaying && power.isInteractive) pushWidget()
+            }
+        }
+    }
 
     /**
      * App swiped away from recents: stop playback (default), or keep playing in the background
@@ -101,6 +160,11 @@ class PlaybackService : MediaLibraryService() {
 
     override fun onDestroy() {
         saveState()
+        com.nocturne.player.i18n.AppLocale.prefs(this).unregisterOnSharedPreferenceChangeListener(languageListener)
+        if (::player.isInitialized) {
+            // Leave the widgets showing the last track, paused.
+            pushWidget()
+        }
         scope.cancel()
         session?.run {
             player.removeListener(playerListener)
@@ -143,6 +207,20 @@ class PlaybackService : MediaLibraryService() {
     }
 
     private val playerListener = object : Player.Listener {
+        /** Widgets refresh on real changes only: track, play/pause, shuffle/repeat, metadata, queue. */
+        override fun onEvents(player: Player, events: Player.Events) {
+            if (events.containsAny(
+                    Player.EVENT_MEDIA_ITEM_TRANSITION,
+                    Player.EVENT_IS_PLAYING_CHANGED,
+                    Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED,
+                    Player.EVENT_REPEAT_MODE_CHANGED,
+                    Player.EVENT_MEDIA_METADATA_CHANGED,
+                    Player.EVENT_TIMELINE_CHANGED,
+                    Player.EVENT_POSITION_DISCONTINUITY,
+                )
+            ) pushWidget()
+        }
+
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) = saveState()
         override fun onTimelineChanged(timeline: androidx.media3.common.Timeline, reason: Int) = saveState()
         override fun onIsPlayingChanged(isPlaying: Boolean) = saveState()
@@ -174,14 +252,14 @@ class PlaybackService : MediaLibraryService() {
         val repeat = if (::player.isInitialized) player.repeatMode else Player.REPEAT_MODE_OFF
         @Suppress("DEPRECATION")
         val shuffle = CommandButton.Builder()
-            .setDisplayName(getString(if (shuffleOn) R.string.shuffle_on else R.string.shuffle_off))
+            .setDisplayName(com.nocturne.player.i18n.AppLocale.localized(this).getString(if (shuffleOn) R.string.shuffle_on else R.string.shuffle_off))
             .setIconResId(if (shuffleOn) R.drawable.ic_n_shuffle else R.drawable.ic_n_shuffle_off)
             .setSessionCommand(SessionCommand(CMD_SHUFFLE, Bundle.EMPTY))
             .build()
         @Suppress("DEPRECATION")
         val repeatButton = CommandButton.Builder()
             .setDisplayName(
-                getString(
+                com.nocturne.player.i18n.AppLocale.localized(this).getString(
                     when (repeat) {
                         Player.REPEAT_MODE_ALL -> R.string.repeat_all
                         Player.REPEAT_MODE_ONE -> R.string.repeat_one
@@ -276,7 +354,7 @@ class PlaybackService : MediaLibraryService() {
             val root = MediaItem.Builder()
                 .setMediaId(rootId)
                 .setMediaMetadata(
-                    MediaMetadata.Builder().setTitle(getString(R.string.app_name))
+                    MediaMetadata.Builder().setTitle(com.nocturne.player.i18n.AppLocale.localized(this@PlaybackService).getString(R.string.app_name))
                         .setIsBrowsable(true).setIsPlayable(false)
                         .setMediaType(MediaMetadata.MEDIA_TYPE_FOLDER_MIXED).build()
                 )

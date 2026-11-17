@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common / content descriptions -->
+    <string name="cd_search">Поиск</string>
+    <string name="cd_settings">Настройки</string>
+    <string name="cd_play">Играть</string>
+    <string name="cd_pause">Пауза</string>
+    <string name="cd_next">Следующая</string>
+    <string name="cd_previous">Предыдущая</string>
+    <string name="cd_shuffle">Перемешать</string>
+    <string name="cd_more">Ещё</string>
+    <string name="cd_close">Закрыть</string>
+    <string name="cd_back">Назад</string>
+    <string name="cd_clear">Очистить текст</string>
+    <string name="cd_volume">Громкость</string>
+    <string name="cd_queue">Очередь</string>
+    <string name="cd_favorite">Избранное</string>
+    <string name="cd_add_to_playlist">Добавить в плейлист</string>
+    <string name="cd_drag">Переместить</string>
+    <string name="cd_done">Готово</string>
+    <string name="cd_play_playlist">Слушать плейлист</string>
+    <string name="cd_remove">Убрать</string>
+    <string name="cd_logo">Логотип Nocturne</string>
+    <string name="cd_close_search">Закрыть поиск</string>
+
+    <!-- Library -->
+    <string name="link_placeholder">Вставьте ссылку YouTube…</string>
+    <string name="paste">Вставить</string>
+    <string name="tab_songs">Песни</string>
+    <string name="tab_playlists">Плейлисты</string>
+    <string name="tab_downloads">Загрузки</string>
+    <string name="sort_recent">Недавно добавленные</string>
+    <string name="sort_title">Название (А–Я)</string>
+    <string name="sort_duration">Длительность</string>
+    <string name="play_all">Слушать всё</string>
+    <string name="shuffle_all">Перемешать всё</string>
+    <string name="search_placeholder">Поиск в библиотеке…</string>
+    <string name="library_empty_title">Библиотека пуста</string>
+    <string name="library_empty_body">Вставьте ссылку YouTube (видео или плейлист), чтобы скачать музыку. Потом всё играет офлайн.</string>
+    <string name="search_empty">Песни не найдены</string>
+    <string name="clipboard_found">В буфере обмена есть ссылка YouTube</string>
+    <string name="clipboard_add">Добавить</string>
+    <string name="clipboard_empty">В буфере обмена нет ссылки YouTube</string>
+
+    <!-- Track menu -->
+    <string name="menu_play_next">Играть следующей</string>
+    <string name="menu_add_queue">Добавить в очередь</string>
+    <string name="menu_add_playlist">Добавить в плейлист</string>
+    <string name="menu_favorite_add">Добавить в избранное</string>
+    <string name="menu_favorite_remove">Убрать из избранного</string>
+    <string name="menu_edit_details">Изменить данные</string>
+    <string name="menu_delete">Удалить песню</string>
+    <string name="menu_remove_from_playlist">Убрать из плейлиста</string>
+    <string name="delete_track_title">Удалить песню?</string>
+    <string name="delete_track_body">«%1$s» будет удалена с телефона.</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="create">Создать</string>
+    <string name="track_deleted">Песня удалена</string>
+    <string name="added_to_playlist">Добавлено в «%1$s»</string>
+    <string name="added_to_queue">Добавлено в очередь</string>
+    <string name="playing_next">Играет следующей</string>
+
+    <!-- Edit details -->
+    <string name="edit_details_title">Изменить данные</string>
+    <string name="edit_title_label">Название</string>
+    <string name="edit_artist_label">Исполнитель</string>
+    <string name="details_saved">Данные сохранены</string>
+
+    <!-- Playlists -->
+    <string name="playlists_title">Плейлисты</string>
+    <string name="new_playlist">Новый</string>
+    <string name="from_youtube">Из YouTube</string>
+    <string name="favorites">Избранное</string>
+    <string name="new_playlist_title">Новый плейлист</string>
+    <string name="rename_playlist_title">Переименовать плейлист</string>
+    <string name="playlist_name_hint">Название плейлиста</string>
+    <string name="rename">Переименовать</string>
+    <string name="delete_playlist">Удалить плейлист</string>
+    <string name="delete_playlist_title">Удалить плейлист?</string>
+    <string name="delete_playlist_body">Песни останутся в библиотеке.</string>
+    <string name="playlists_empty">Плейлистов пока нет. Создайте плейлист или импортируйте его из YouTube.</string>
+    <string name="playlist_empty">Плейлист пуст</string>
+    <string name="choose_playlist">Выберите плейлист</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Сейчас играет</string>
+    <string name="playing_from_playlist">ИГРАЕТ ИЗ ПЛЕЙЛИСТА</string>
+    <string name="playing_from_library">ИГРАЕТ ИЗ БИБЛИОТЕКИ</string>
+    <string name="all_songs">Все песни</string>
+    <string name="queue">Очередь</string>
+    <string name="queue_empty">Очередь пуста</string>
+
+    <!-- Add music -->
+    <string name="add_music">Добавить музыку</string>
+    <string name="link_label">Ссылка на видео или плейлист YouTube</string>
+    <string name="playlist_detected">НАЙДЕН ПЛЕЙЛИСТ</string>
+    <string name="video_detected">НАЙДЕНО ВИДЕО</string>
+    <string name="resolving">Читаем ссылку…</string>
+    <string name="download_one">Скачать песню</string>
+    <string name="all_in_library">Все песни уже есть в библиотеке</string>
+    <string name="downloads">Загрузки</string>
+    <string name="downloads_stats_idle">%1$d из %2$d</string>
+    <string name="downloads_stats">%1$d из %2$d · %3$d одновременно · %4$s</string>
+    <string name="pause_all">Приостановить всё</string>
+    <string name="resume_all">Продолжить всё</string>
+    <string name="clear_finished">Очистить список</string>
+    <string name="status_done">Готово</string>
+    <string name="status_failed">Ошибка</string>
+    <string name="status_queued">В очереди</string>
+    <string name="status_paused">Пауза</string>
+    <string name="status_preparing">Подготовка…</string>
+    <string name="retry">Повторить</string>
+    <string name="attempt">попытка %1$d/%2$d</string>
+    <string name="downloads_empty">Загрузок нет. Вставьте ссылку YouTube, чтобы начать.</string>
+    <string name="add">Добавить</string>
+    <string name="import_playlist">Импортировать плейлист</string>
+    <string name="playlist_imported">Плейлист импортирован в библиотеку</string>
+
+    <!-- Errors -->
+    <string name="error_invalid_link">Неверная ссылка. Используйте ссылку на видео или плейлист YouTube.</string>
+    <string name="error_no_internet">Нет интернета. Проверьте подключение и попробуйте снова.</string>
+    <string name="error_unavailable">Видео недоступно</string>
+    <string name="error_age_restricted">Видео с возрастным ограничением</string>
+    <string name="error_geo_restricted">Видео недоступно в вашей стране</string>
+    <string name="error_private">Закрытое видео</string>
+    <string name="error_paid">Платный контент</string>
+    <string name="error_captcha">YouTube просит подтверждение. Попробуйте позже.</string>
+    <string name="error_bot">YouTube временно заблокировал запросы. Попробуйте позже.</string>
+    <string name="error_no_audio">Нет доступного аудиопотока</string>
+    <string name="error_storage">Недостаточно места</string>
+    <string name="error_generic">Неожиданная ошибка. Попробуйте снова.</string>
+
+    <!-- Settings -->
+    <string name="settings">Настройки</string>
+    <string name="settings_language_section">Язык</string>
+    <string name="language_system">Язык системы</string>
+    <string name="language_system_body">Как на телефоне (иначе: Română)</string>
+    <string name="settings_playback_section">Фоновое воспроизведение</string>
+    <string name="battery_title">Оптимизация батареи</string>
+    <string name="battery_on">Nocturne в исключениях – музыка играет с выключенным экраном.</string>
+    <string name="battery_off">Система может остановить фоновое воспроизведение. Нажмите, чтобы исключить приложение.</string>
+    <string name="battery_system_page">Системная страница батареи</string>
+    <string name="battery_system_page_body">Открыть настройки оптимизации батареи</string>
+    <string name="xiaomi_autostart">Автозапуск (Xiaomi)</string>
+    <string name="xiaomi_autostart_body">Разрешите автозапуск, чтобы музыка не останавливалась.</string>
+    <string name="keep_playing_title">Воспроизведение после закрытия</string>
+    <string name="keep_playing_on">Музыка продолжает играть, когда вы смахиваете приложение из недавних</string>
+    <string name="keep_playing_off">Музыка останавливается, когда вы смахиваете приложение из недавних</string>
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_on">Включены</string>
+    <string name="notifications_off">Выключены – нажмите, чтобы включить</string>
+    <string name="storage_title">Хранилище</string>
+    <string name="storage_body">%1$s · %2$s</string>
+    <string name="about_section">О приложении</string>
+    <string name="app_version">Версия приложения</string>
+
+    <!-- Battery dialog -->
+    <string name="battery_dialog_title">Музыка без перерывов</string>
+    <string name="battery_dialog_body">Чтобы музыка не останавливалась при выключенном экране или в режиме экономии энергии, разрешите Nocturne работать в фоне без ограничений.</string>
+    <string name="battery_dialog_allow">Разрешить</string>
+    <string name="battery_dialog_later">Позже</string>
+
+    <!-- Notifications -->
+    <string name="channel_playback">Воспроизведение</string>
+    <string name="channel_playback_desc">Управление воспроизведением</string>
+    <string name="channel_downloads">Загрузки</string>
+    <string name="channel_downloads_desc">Ход загрузок</string>
+    <string name="notif_preparing">Подготовка загрузок…</string>
+    <string name="notif_subtitle">%1$d из %2$d · %3$s</string>
+    <string name="notif_subtitle_plain">%1$d из %2$d</string>
+    <string name="notif_pause">Пауза</string>
+    <string name="notif_cancel">Отмена</string>
+    <string name="shuffle_on">Перемешивание вкл.</string>
+    <string name="shuffle_off">Перемешивание выкл.</string>
+    <string name="repeat_off">Повтор выкл.</string>
+    <string name="repeat_all">Повторять все</string>
+    <string name="repeat_one">Повторять одну</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_description">Сейчас играет: обложка, название и управление</string>
+    <string name="widget_nothing_playing">Ничего не играет</string>
+    <string name="widget_pick_song">Выберите песню</string>
+    <string name="widget_add_link">Добавить ссылку</string>
+    <string name="widget_up_next">ДАЛЕЕ</string>
+
+    <!-- Units -->
+    <string name="fmt_hours_minutes">%1$d ч %2$d мин</string>
+    <string name="fmt_hours">%1$d ч</string>
+    <string name="fmt_minutes">%1$d мин</string>
+    <string name="fmt_mb">%1$s МБ</string>
+    <string name="fmt_gb">%1$s ГБ</string>
+    <string name="fmt_speed_mb">%1$s МБ/с</string>
+    <string name="fmt_speed_kb">%1$s КБ/с</string>
+
+    <!-- Russian plural rules: one (1, 21…), few (2–4, 22–24…), many (5–20, 25…), other (fractions) -->
+    <plurals name="songs_count">
+        <item quantity="one">%d песня</item>
+        <item quantity="few">%d песни</item>
+        <item quantity="many">%d песен</item>
+        <item quantity="other">%d песни</item>
+    </plurals>
+    <plurals name="download_new">
+        <item quantity="one">Скачать %d новую песню</item>
+        <item quantity="few">Скачать %d новые песни</item>
+        <item quantity="many">Скачать %d новых песен</item>
+        <item quantity="other">Скачать %d новой песни</item>
+    </plurals>
+    <plurals name="already_in_library">
+        <item quantity="one">%d уже в библиотеке</item>
+        <item quantity="few">%d уже в библиотеке</item>
+        <item quantity="many">%d уже в библиотеке</item>
+        <item quantity="other">%d уже в библиотеке</item>
+    </plurals>
+    <plurals name="added_to_downloads">
+        <item quantity="one">%d песня добавлена в загрузки</item>
+        <item quantity="few">%d песни добавлены в загрузки</item>
+        <item quantity="many">%d песен добавлено в загрузки</item>
+        <item quantity="other">%d песни добавлено в загрузки</item>
+    </plurals>
+    <plurals name="notif_downloading">
+        <item quantity="one">Скачивается %d песня</item>
+        <item quantity="few">Скачиваются %d песни</item>
+        <item quantity="many">Скачивается %d песен</item>
+        <item quantity="other">Скачивается %d песни</item>
+    </plurals>
+    <!-- Lyrics (LRCLIB) -->
+    <string name="lyrics">Текст песни</string>
+    <string name="lyrics_loading">Ищем текст…</string>
+    <string name="lyrics_offline">Текст ещё не сохранён, а интернета нет.</string>
+    <string name="lyrics_not_found">Текст для этой песни не найден.</string>
+    <string name="lyrics_instrumental">Инструментальная композиция</string>
+    <string name="lyrics_source">Текст: LRCLIB · сохранён для офлайн-прослушивания</string>
+</resources>

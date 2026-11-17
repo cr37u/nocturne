@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Română (default). Translations: values-en/, values-ru/. Track titles, artists and playlist
+     names are user data and are never translated. -->
 <resources>
-    <string name="app_name">Nocturne</string>
+    <string name="app_name" translatable="false">Nocturne</string>
 
     <!-- Common / content descriptions -->
     <string name="cd_search">Caută</string>
@@ -50,6 +52,7 @@
     <string name="menu_add_playlist">Adaugă în playlist</string>
     <string name="menu_favorite_add">Adaugă la Favorite</string>
     <string name="menu_favorite_remove">Elimină din Favorite</string>
+    <string name="menu_edit_details">Editează detaliile</string>
     <string name="menu_delete">Șterge melodia</string>
     <string name="menu_remove_from_playlist">Elimină din playlist</string>
     <string name="delete_track_title">Ștergi melodia?</string>
@@ -62,6 +65,12 @@
     <string name="added_to_playlist">Adăugată în „%1$s”</string>
     <string name="added_to_queue">Adăugată în coadă</string>
     <string name="playing_next">Se redă următoarea</string>
+
+    <!-- Edit details -->
+    <string name="edit_details_title">Editează detaliile</string>
+    <string name="edit_title_label">Titlu</string>
+    <string name="edit_artist_label">Artist</string>
+    <string name="details_saved">Detalii salvate</string>
 
     <!-- Playlists -->
     <string name="playlists_title">Playlisturi</string>
@@ -93,8 +102,6 @@
     <string name="playlist_detected">PLAYLIST DETECTAT</string>
     <string name="video_detected">VIDEO DETECTAT</string>
     <string name="resolving">Se analizează linkul…</string>
-    <string name="already_in_library">%1$d deja în bibliotecă</string>
-    <string name="download_new">Descarcă %1$d melodii noi</string>
     <string name="download_one">Descarcă melodia</string>
     <string name="all_in_library">Toate melodiile sunt deja în bibliotecă</string>
     <string name="downloads">Descărcări</string>
@@ -111,7 +118,6 @@
     <string name="retry">Reîncearcă</string>
     <string name="attempt">încercarea %1$d/%2$d</string>
     <string name="downloads_empty">Nicio descărcare. Lipește un link YouTube ca să începi.</string>
-    <string name="added_to_downloads">%1$d melodii adăugate la descărcări</string>
     <string name="add">Adaugă</string>
     <string name="import_playlist">Importă playlistul</string>
     <string name="playlist_imported">Playlist importat în bibliotecă</string>
@@ -132,6 +138,9 @@
 
     <!-- Settings -->
     <string name="settings">Setări</string>
+    <string name="settings_language_section">Limbă</string>
+    <string name="language_system">Limba sistemului</string>
+    <string name="language_system_body">Urmează limba telefonului (altfel: Română)</string>
     <string name="settings_playback_section">Redare în fundal</string>
     <string name="battery_title">Optimizare baterie</string>
     <string name="battery_on">Nocturne este exceptat – redarea continuă cu ecranul stins.</string>
@@ -150,7 +159,7 @@
     <string name="storage_body">%1$s · %2$s</string>
     <string name="about_section">Despre</string>
     <string name="app_version">Versiune aplicație</string>
-    <string name="extractor_version">NewPipeExtractor</string>
+    <string name="extractor_version" translatable="false">NewPipeExtractor</string>
 
     <!-- Battery dialog -->
     <string name="battery_dialog_title">Redare fără întreruperi</string>
@@ -163,8 +172,6 @@
     <string name="channel_playback_desc">Controale de redare</string>
     <string name="channel_downloads">Descărcări</string>
     <string name="channel_downloads_desc">Progresul descărcărilor</string>
-    <string name="notif_downloading">Se descarcă %1$d melodii</string>
-    <string name="notif_downloading_one">Se descarcă 1 melodie</string>
     <string name="notif_preparing">Se pregătesc descărcările…</string>
     <string name="notif_subtitle">%1$d din %2$d · %3$s</string>
     <string name="notif_subtitle_plain">%1$d din %2$d</string>
@@ -176,9 +183,54 @@
     <string name="repeat_all">Repetă tot</string>
     <string name="repeat_one">Repetă una</string>
 
+    <!-- Home-screen widget -->
+    <string name="widget_name" translatable="false">Nocturne</string>
+    <string name="widget_description">Se redă acum: copertă, titlu și controale</string>
+    <string name="widget_nothing_playing">Nu se redă nimic</string>
+    <string name="widget_pick_song">Alege o melodie</string>
+    <string name="widget_add_link">Adaugă link</string>
+    <string name="widget_up_next">URMEAZĂ</string>
+
+    <!-- Units (formatted with the app language) -->
+    <string name="fmt_hours_minutes">%1$d h %2$d min</string>
+    <string name="fmt_hours">%1$d h</string>
+    <string name="fmt_minutes">%1$d min</string>
+    <string name="fmt_mb">%1$s MB</string>
+    <string name="fmt_gb">%1$s GB</string>
+    <string name="fmt_speed_mb">%1$s MB/s</string>
+    <string name="fmt_speed_kb">%1$s KB/s</string>
+
+    <!-- Romanian plural rules: one = 1, few = 0 / 2–19 / x01–x19, other = 20+ ("20 de melodii") -->
     <plurals name="songs_count">
         <item quantity="one">%d melodie</item>
         <item quantity="few">%d melodii</item>
-        <item quantity="other">%d melodii</item>
+        <item quantity="other">%d de melodii</item>
     </plurals>
+    <plurals name="download_new">
+        <item quantity="one">Descarcă %d melodie nouă</item>
+        <item quantity="few">Descarcă %d melodii noi</item>
+        <item quantity="other">Descarcă %d de melodii noi</item>
+    </plurals>
+    <plurals name="already_in_library">
+        <item quantity="one">%d deja în bibliotecă</item>
+        <item quantity="few">%d deja în bibliotecă</item>
+        <item quantity="other">%d deja în bibliotecă</item>
+    </plurals>
+    <plurals name="added_to_downloads">
+        <item quantity="one">%d melodie adăugată la descărcări</item>
+        <item quantity="few">%d melodii adăugate la descărcări</item>
+        <item quantity="other">%d de melodii adăugate la descărcări</item>
+    </plurals>
+    <plurals name="notif_downloading">
+        <item quantity="one">Se descarcă %d melodie</item>
+        <item quantity="few">Se descarcă %d melodii</item>
+        <item quantity="other">Se descarcă %d de melodii</item>
+    </plurals>
+    <!-- Lyrics (LRCLIB) -->
+    <string name="lyrics">Versuri</string>
+    <string name="lyrics_loading">Se caută versurile…</string>
+    <string name="lyrics_offline">Versurile nu sunt salvate încă și nu ești conectat la internet.</string>
+    <string name="lyrics_not_found">Nu am găsit versuri pentru această melodie.</string>
+    <string name="lyrics_instrumental">Piesă instrumentală</string>
+    <string name="lyrics_source">Versuri: LRCLIB · salvate pentru ascultare offline</string>
 </resources>

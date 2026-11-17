@@ -228,7 +228,7 @@ private fun LinkBar(onSubmit: (String?) -> Unit) {
             text = ""
             onSubmit(link)
         } else {
-            scope.launch { snackbar.showSnackbar(context.getString(R.string.error_invalid_link)) }
+            scope.launch { snackbar.showSnackbar(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.error_invalid_link)) }
         }
     }
 
@@ -264,7 +264,7 @@ private fun LinkBar(onSubmit: (String?) -> Unit) {
                 if (text.isNotBlank()) submit(text) else {
                     val clip = clipboard.getText()?.text
                     if (YouTubeLinks.extractUrl(clip) != null) submit(clip!!)
-                    else scope.launch { snackbar.showSnackbar(context.getString(R.string.clipboard_empty)) }
+                    else scope.launch { snackbar.showSnackbar(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.clipboard_empty)) }
                 }
             },
             height = 44.dp,

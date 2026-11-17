@@ -62,8 +62,26 @@ even after a reboot.
 <td width="50%" valign="top">
 
 ### Your library, organised
-Search, sort, swipe to delete, favorites, local playlists, and a draggable queue.
-Imported YouTube playlists stay linked as <em>Din YouTube</em> playlists.
+Search that ignores case and diacritics ("oras" finds "oraș", Cyrillic too), sort, swipe to
+delete, favorites, local playlists and a draggable queue. **Edit details** fixes a title or
+artist everywhere at once; imported YouTube playlists stay linked as <em>Din YouTube</em>.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### Română · English · Русский
+Switch the language live in **Setări → Limbă** (or Android 13+ **App languages**). Playback,
+downloads and your place in the app carry on; notifications and widgets follow. Song titles are
+your data and are never translated.
+
+</td>
+<td width="50%" valign="top">
+
+### Home-screen widgets
+One resizable widget with three layouts: 2×2 artwork, 4×2 player and 4×4 with shuffle, repeat,
+progress, "Up next" and an **Add link** button. The buttons work with the app closed.
 
 </td>
 </tr>
@@ -198,7 +216,7 @@ The version in use is shown in **Setări → Despre**.
 
 </details>
 
-A full on-device test checklist lives in [docs/TESTING.md](docs/TESTING.md).
+A full on-device test checklist lives in [docs/TESTING.md](docs/TESTING.md) (including the 1.1 checks: update over the old install, live language switch, edit details, widgets).
 
 ## Disclaimer
 

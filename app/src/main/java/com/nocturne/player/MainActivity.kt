@@ -3,7 +3,7 @@ package com.nocturne.player
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var playerConnection: PlayerConnection
 
@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
             Intent.ACTION_VIEW -> intent.dataString?.let { UiEvent.OpenLink(it) }
             ACTION_OPEN_NOW_PLAYING -> UiEvent.OpenNowPlaying
             ACTION_OPEN_DOWNLOADS -> UiEvent.OpenDownloads
+            ACTION_OPEN_ADD_FROM_CLIPBOARD -> UiEvent.OpenAddFromClipboard
             else -> null
         } ?: events.value
     }
@@ -61,5 +62,6 @@ class MainActivity : ComponentActivity() {
     companion object {
         const val ACTION_OPEN_NOW_PLAYING = "com.nocturne.player.OPEN_NOW_PLAYING"
         const val ACTION_OPEN_DOWNLOADS = "com.nocturne.player.OPEN_DOWNLOADS"
+        const val ACTION_OPEN_ADD_FROM_CLIPBOARD = "com.nocturne.player.OPEN_ADD_FROM_CLIPBOARD"
     }
 }

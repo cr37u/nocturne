@@ -10,6 +10,8 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -143,6 +145,23 @@ fun SettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewModel()) 
             leading = { IconButton44(Lucide.ArrowLeft, stringResource(R.string.cd_back), onClick = onBack) },
         )
 
+        // ---- Limbă: applies immediately (the Activity is recreated; scroll position, playback
+        // in PlaybackService and downloads in WorkManager are not interrupted).
+        val selected = remember { com.nocturne.player.i18n.AppLocale.selectedTag(context) }
+        Section(stringResource(R.string.settings_language_section))
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            LanguageCard(
+                name = stringResource(R.string.language_system),
+                subtitle = stringResource(R.string.language_system_body),
+                code = null,
+                selected = selected == com.nocturne.player.i18n.AppLocale.SYSTEM,
+                onClick = { com.nocturne.player.i18n.AppLocale.setLanguage(context, com.nocturne.player.i18n.AppLocale.SYSTEM) },
+            )
+            LanguageCard("Română", null, "RO", selected == "ro") { com.nocturne.player.i18n.AppLocale.setLanguage(context, "ro") }
+            LanguageCard("English", null, "EN", selected == "en") { com.nocturne.player.i18n.AppLocale.setLanguage(context, "en") }
+            LanguageCard("Русский", null, "RU", selected == "ru") { com.nocturne.player.i18n.AppLocale.setLanguage(context, "ru") }
+        }
+
         Section(stringResource(R.string.settings_playback_section))
         SettingsCard {
             SettingsRow(
@@ -209,6 +228,57 @@ fun SettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewModel()) 
         SettingsCard {
             SettingsRow(Lucide.Info, stringResource(R.string.app_version), BuildConfig.VERSION_NAME, onClick = null)
             SettingsRow(Lucide.Download, stringResource(R.string.extractor_version), BuildConfig.NEWPIPE_EXTRACTOR_VERSION, onClick = null)
+        }
+    }
+}
+
+/** Radio card: language name in its own language + code chip; selected = 1.5dp #3B6CF6 border + amber check. */
+@Composable
+private fun LanguageCard(name: String, subtitle: String?, code: String?, selected: Boolean, onClick: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .heightIn(min = 60.dp)
+            .clip(NocturneShapes.Card)
+            .background(NocturneColors.Surface)
+            .then(
+                if (selected) Modifier.border(1.5.dp, NocturneColors.BrightStart, NocturneShapes.Card)
+                else Modifier.border(1.dp, NocturneColors.SurfaceElevated, NocturneShapes.Card)
+            )
+            .selectable(selected = selected, role = androidx.compose.ui.semantics.Role.RadioButton, onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier
+                .clip(NocturneShapes.Thumb12)
+                .background(if (selected) NocturneColors.BrightStart.copy(alpha = 0.2f) else NocturneColors.SurfaceElevated)
+                .padding(horizontal = 10.dp, vertical = 6.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (code != null) {
+                Text(code, style = NocturneType.Badge11, color = if (selected) NocturneColors.TextPrimary else NocturneColors.TextSecondary)
+            } else {
+                Icon(Lucide.Globe, null, tint = if (selected) NocturneColors.TextPrimary else NocturneColors.TextSecondary, modifier = Modifier.size(16.dp))
+            }
+        }
+        Spacer(Modifier.width(14.dp))
+        Column(Modifier.weight(1f)) {
+            Text(name, style = NocturneType.TrackTitle, color = NocturneColors.TextPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            if (subtitle != null) {
+                Text(subtitle, style = NocturneType.Meta, color = NocturneColors.TextSecondary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            }
+        }
+        Spacer(Modifier.width(8.dp))
+        Box(
+            Modifier
+                .size(24.dp)
+                .clip(androidx.compose.foundation.shape.CircleShape)
+                .background(if (selected) NocturneColors.Amber else Color.Transparent)
+                .then(if (selected) Modifier else Modifier.border(1.5.dp, NocturneColors.ProgressTrack, androidx.compose.foundation.shape.CircleShape)),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (selected) Icon(Lucide.Check, null, tint = NocturneColors.Background, modifier = Modifier.size(15.dp))
         }
     }
 }

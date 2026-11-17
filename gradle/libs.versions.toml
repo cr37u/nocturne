@@ -16,6 +16,8 @@ okhttp = "4.12.0"
 coil = "2.7.0"
 coroutines = "1.9.0"
 reorderable = "2.4.0"
+appcompat = "1.7.0"
+glance = "1.1.1"
 desugar = "2.1.4"
 junit = "4.13.2"
 # To update the YouTube extractor, change ONLY this line (see README → "Updating NewPipeExtractor").
@@ -53,6 +55,8 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "coroutines" }
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+glance-appwidget = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 newpipe-extractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version.ref = "newpipeExtractor" }
 junit = { module = "junit:junit", version.ref = "junit" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugar" }

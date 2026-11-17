@@ -87,6 +87,8 @@ sealed interface UiEvent {
     data object OpenNowPlaying : UiEvent
     data object OpenDownloads : UiEvent
     data class OpenLink(val text: String) : UiEvent
+    /** Widget "Adaugă link": open Add music with the clipboard link pre-filled. */
+    data object OpenAddFromClipboard : UiEvent
 }
 
 @HiltViewModel
@@ -113,6 +115,8 @@ fun NocturneRoot(events: StateFlow<UiEvent?>, onEventConsumed: () -> Unit) {
 
     var expanded by rememberSaveable { mutableStateOf(false) }
     var tab by rememberSaveable { mutableStateOf(HomeTab.SONGS) }
+    // The clipboard can only be read once the window has focus (Android 10+).
+    var addFromClipboard by rememberSaveable { mutableStateOf(false) }
     val backStack by nav.currentBackStackEntryAsState()
     val route = backStack?.destination?.route
     val miniVisible = player.hasMedia && (route == ROUTE_HOME || route == ROUTE_PLAYLIST)
@@ -132,7 +136,11 @@ fun NocturneRoot(events: StateFlow<UiEvent?>, onEventConsumed: () -> Unit) {
                 expanded = false
                 val link = YouTubeLinks.extractUrl(e.text)
                 if (link != null) nav.openAdd(link)
-                else snackbar.showSnackbar(context.getString(R.string.error_invalid_link))
+                else snackbar.showSnackbar(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.error_invalid_link))
+            }
+            UiEvent.OpenAddFromClipboard -> {
+                expanded = false
+                addFromClipboard = true
             }
         }
         onEventConsumed()
@@ -141,12 +149,17 @@ fun NocturneRoot(events: StateFlow<UiEvent?>, onEventConsumed: () -> Unit) {
     // ---- clipboard YouTube link detection when the app gains focus
     val windowInfo = LocalWindowInfo.current
     LaunchedEffect(windowInfo) {
-        snapshotFlow { windowInfo.isWindowFocused }.filter { it }.collect {
+        snapshotFlow { windowInfo.isWindowFocused to addFromClipboard }.filter { it.first }.collect { (_, fromWidget) ->
+            if (fromWidget) {
+                addFromClipboard = false
+                nav.openAdd(clipboardAnyYouTubeLink(context))
+                return@collect
+            }
             val link = clipboardYouTubeLink(context, rootVm.prefs) ?: return@collect
             if (nav.currentDestination?.route == ROUTE_ADD) return@collect
             val result = snackbar.showSnackbar(
-                message = context.getString(R.string.clipboard_found),
-                actionLabel = context.getString(R.string.clipboard_add),
+                message = com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.clipboard_found),
+                actionLabel = com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.clipboard_add),
                 withDismissAction = true,
                 duration = SnackbarDuration.Long,
             )
@@ -243,6 +256,7 @@ fun NocturneRoot(events: StateFlow<UiEvent?>, onEventConsumed: () -> Unit) {
                                 onExpand = { expanded = true },
                                 onTogglePlay = playerVm::togglePlay,
                                 onNext = playerVm::next,
+                                onPrevious = playerVm::previous,
                                 artworkModifier = artworkShared,
                                 modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 22.dp + navBarPadding()),
                             )
@@ -290,6 +304,13 @@ fun NocturneRoot(events: StateFlow<UiEvent?>, onEventConsumed: () -> Unit) {
             },
         )
     }
+}
+
+/** Any YouTube link currently in the clipboard (widget "Adaugă link"), or null. */
+private fun clipboardAnyYouTubeLink(context: Context): String? {
+    val cm = context.getSystemService(ClipboardManager::class.java) ?: return null
+    val text = runCatching { cm.primaryClip?.getItemAt(0)?.coerceToText(context)?.toString() }.getOrNull()
+    return YouTubeLinks.extractUrl(text)
 }
 
 /**

@@ -21,7 +21,10 @@ import com.nocturne.player.R
  * play/pause · next · repeat, colorized with the Nocturne gradient tone. The seek bar on
  * Android 10+ and the lock-screen / Quick Settings media card come from the MediaSession.
  */
-class NocturneNotificationProvider(private val context: Context) : MediaNotification.Provider {
+class NocturneNotificationProvider(private val base: Context) : MediaNotification.Provider {
+
+    /** Labels follow the app language (also on Android < 13, where the service context does not). */
+    private val context: Context get() = com.nocturne.player.i18n.AppLocale.localized(base)
 
     private var cachedArtKey: String? = null
     private var cachedArt: Bitmap? = null

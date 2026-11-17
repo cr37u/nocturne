@@ -56,13 +56,13 @@ class TrackActionsViewModel @Inject constructor(
 
     fun addToPlaylist(trackId: String, playlist: PlaylistEntity, onDone: (String) -> Unit) = viewModelScope.launch {
         playlistRepo.addTrack(playlist.id, trackId)
-        onDone(context.getString(R.string.added_to_playlist, playlist.name))
+        onDone(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.added_to_playlist, playlist.name))
     }
 
     fun createAndAdd(name: String, trackId: String, onDone: (String) -> Unit) = viewModelScope.launch {
         val id = playlistRepo.create(name)
         playlistRepo.addTrack(id, trackId)
-        onDone(context.getString(R.string.added_to_playlist, name))
+        onDone(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.added_to_playlist, name))
     }
 
     fun removeFromPlaylist(playlistId: Long, trackId: String) = viewModelScope.launch {
@@ -71,6 +71,13 @@ class TrackActionsViewModel @Inject constructor(
 
     fun playNext(track: TrackEntity) = player.playNext(track)
     fun addToQueue(track: TrackEntity) = player.addToQueue(track)
+
+    /** Saves the edit, then pushes it into the player (list/Now Playing update through Room). */
+    fun editDetails(trackId: String, title: String, artist: String, onDone: (String) -> Unit) = viewModelScope.launch {
+        val updated = tracks.editMetadata(trackId, title, artist) ?: return@launch
+        player.updateMetadata(updated)
+        onDone(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.details_saved))
+    }
 
     suspend fun track(id: String) = tracks.get(id)
 }
@@ -82,11 +89,13 @@ sealed interface TrackMenuStep {
     data class PickPlaylist(val trackId: String) : TrackMenuStep
     data class NewPlaylist(val trackId: String) : TrackMenuStep
     data class ConfirmDelete(val track: TrackEntity) : TrackMenuStep
+    data class EditDetails(val track: TrackEntity) : TrackMenuStep
 }
 
 class TrackMenuController {
     var step: TrackMenuStep by mutableStateOf(TrackMenuStep.None)
     fun open(track: TrackEntity) { step = TrackMenuStep.Menu(track) }
+    fun editDetails(track: TrackEntity) { step = TrackMenuStep.EditDetails(track) }
     fun pickPlaylist(trackId: String) { step = TrackMenuStep.PickPlaylist(trackId) }
     fun confirmDelete(track: TrackEntity) { step = TrackMenuStep.ConfirmDelete(track) }
     fun close() { step = TrackMenuStep.None }
@@ -113,12 +122,18 @@ fun TrackMenuHost(
         is TrackMenuStep.Menu -> TrackActionsSheet(
             track = step.track,
             onDismiss = controller::close,
-            onPlayNext = { vm.playNext(step.track); controller.close(); notify(context.getString(R.string.playing_next)) },
-            onAddToQueue = { vm.addToQueue(step.track); controller.close(); notify(context.getString(R.string.added_to_queue)) },
+            onPlayNext = { vm.playNext(step.track); controller.close(); notify(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.playing_next)) },
+            onAddToQueue = { vm.addToQueue(step.track); controller.close(); notify(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.added_to_queue)) },
             onAddToPlaylist = { controller.pickPlaylist(step.track.id) },
             onToggleFavorite = { vm.toggleFavorite(step.track.id); controller.close() },
             onDelete = { controller.confirmDelete(step.track) },
             onRemoveFromPlaylist = playlistId?.let { pid -> { vm.removeFromPlaylist(pid, step.track.id); controller.close() } },
+            onEditDetails = { controller.editDetails(step.track) },
+        )
+        is TrackMenuStep.EditDetails -> com.nocturne.player.ui.components.EditTrackSheet(
+            track = step.track,
+            onDismiss = controller::close,
+            onSave = { title, artist -> vm.editDetails(step.track.id, title, artist, notify); controller.close() },
         )
         is TrackMenuStep.PickPlaylist -> AddToPlaylistSheet(
             playlists = playlists.filter { it.id != playlistId },
@@ -138,7 +153,7 @@ fun TrackMenuHost(
             confirmLabel = stringResource(R.string.delete),
             onDismiss = controller::close,
             onConfirm = {
-                vm.delete(step.track) { notify(context.getString(R.string.track_deleted)) }
+                vm.delete(step.track) { notify(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.track_deleted)) }
                 controller.close()
             },
         )

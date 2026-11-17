@@ -40,6 +40,7 @@ fun MiniPlayer(
     onExpand: () -> Unit,
     onTogglePlay: () -> Unit,
     onNext: () -> Unit,
+    onPrevious: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     artworkModifier: Modifier = Modifier,
 ) {
@@ -55,28 +56,34 @@ fun MiniPlayer(
             .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 12.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Artwork(
-                model = state.artworkUri,
-                seed = state.mediaId,
-                shape = NocturneShapes.CoverSmall,
-                modifier = artworkModifier.size(46.dp),
-            )
-            Spacer(Modifier.width(12.dp))
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    state.title,
-                    style = NocturneType.TrackTitle,
-                    color = NocturneColors.TextPrimary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+            // Artwork + titles swipe: left → next, right → previous (buttons stay put).
+            Row(
+                Modifier.weight(1f).swipeToSkip(state.hasMedia, onNext = onNext, onPrevious = onPrevious ?: onNext),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Artwork(
+                    model = state.artworkUri,
+                    seed = state.mediaId,
+                    shape = NocturneShapes.CoverSmall,
+                    modifier = artworkModifier.size(46.dp),
                 )
-                Text(
-                    state.artist,
-                    style = NocturneType.Meta,
-                    color = NocturneColors.TextSecondary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(
+                        state.title,
+                        style = NocturneType.TrackTitle,
+                        color = NocturneColors.TextPrimary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Text(
+                        state.artist,
+                        style = NocturneType.Meta,
+                        color = NocturneColors.TextSecondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
             }
             Spacer(Modifier.width(8.dp))
             Crossfade(state.isPlaying, label = "miniPlayPause") { playing ->

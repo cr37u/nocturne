@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "URMEAZĂ" card on the 4x4 widget -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#4D0A0A14" />
+    <corners android:radius="16dp" />
+</shape>

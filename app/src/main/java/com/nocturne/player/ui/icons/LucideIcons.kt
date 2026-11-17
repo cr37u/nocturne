@@ -83,6 +83,17 @@ object Lucide {
     val Download by lazy { icon("download", "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", "M7 10l5 5 5-5", "M12 15V3") }
     val X by lazy { icon("x", "M18 6L6 18", "M6 6l12 12") }
     val Check by lazy { icon("check", "M20 6L9 17l-5-5") }
+    val MicVocal by lazy {
+        icon(
+            "mic-vocal",
+            "M11 7.6l-6 8.19a1 1 0 0 0 .1 1.3l.82.82a1 1 0 0 0 1.31.09L15.09 12",
+            "M16.5 21.17C15.5 20.5 14.37 20 13 20c-2.06 0-3.93 2.36-6 2-2.07-.36-2.78-3.37-1.5-4.5",
+            "M16 2a5 5 0 1 0 0 10a5 5 0 1 0 0-10z",
+        )
+    }
+    val Globe by lazy {
+        icon("globe", "M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20z", "M2 12h20", "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z")
+    }
     val Plus by lazy { icon("plus", "M5 12h14", "M12 5v14") }
     val Volume by lazy {
         icon("volume-2", "M11 5L6 9H2v6h4l5 4V5z", "M15.54 8.46a5 5 0 0 1 0 7.07", "M19.07 4.93a10 10 0 0 1 0 14.14")

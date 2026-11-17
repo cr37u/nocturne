@@ -56,8 +56,11 @@ class HomeViewModel @Inject constructor(
 
     val tracks: StateFlow<List<TrackEntity>> = combine(allTracks, sort, query) { list, s, q ->
         val filtered = if (q.isBlank()) list else {
-            val needle = q.trim()
-            list.filter { it.title.contains(needle, true) || it.artist.contains(needle, true) }
+            // Case- and diacritics-insensitive: "oras" finds "oraș", "горы" finds "Горы".
+            val needle = com.nocturne.player.data.SearchKey.normalize(q)
+            list.filter { t ->
+                (t.searchKey.ifEmpty { com.nocturne.player.data.SearchKey.of(t.title, t.artist) }).contains(needle)
+            }
         }
         when (s) {
             SortOrder.RECENT -> filtered.sortedByDescending { it.addedAt }
@@ -81,17 +84,17 @@ class HomeViewModel @Inject constructor(
     }
 
     fun playAll(shuffle: Boolean) {
-        player.playTracks(tracks.value, 0, shuffle, PlayContext(context.getString(R.string.all_songs), false))
+        player.playTracks(tracks.value, 0, shuffle, PlayContext(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.all_songs), false))
     }
 
     fun playTrack(index: Int) {
-        player.playTracks(tracks.value, index, false, PlayContext(context.getString(R.string.all_songs), false))
+        player.playTracks(tracks.value, index, false, PlayContext(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.all_songs), false))
     }
 
     fun togglePlay() = player.togglePlayPause()
 
     fun playFavorites() {
-        player.playTracks(favorites.value, 0, false, PlayContext(context.getString(R.string.favorites), true))
+        player.playTracks(favorites.value, 0, false, PlayContext(com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.favorites), true))
     }
 
     fun playPlaylist(id: Long) = viewModelScope.launch {
@@ -179,7 +182,7 @@ class PlaylistDetailViewModel @Inject constructor(
 
     val playerState = player.state
 
-    private fun name() = if (isFavorites) context.getString(R.string.favorites) else playlist.value?.name.orEmpty()
+    private fun name() = if (isFavorites) com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.favorites) else playlist.value?.name.orEmpty()
 
     fun play(index: Int = 0, shuffle: Boolean = false) =
         player.playTracks(tracks.value, index, shuffle, PlayContext(name(), true))

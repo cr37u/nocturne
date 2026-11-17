@@ -182,8 +182,8 @@ class AddMusicViewModel @Inject constructor(
         viewModelScope.launch {
             val added = downloads.enqueue(found.resolved)
             _messages.tryEmit(
-                if (added == 0 && found.resolved.isPlaylist) context.getString(R.string.playlist_imported)
-                else context.getString(R.string.added_to_downloads, added)
+                if (added == 0 && found.resolved.isPlaylist) com.nocturne.player.i18n.AppLocale.localized(context).getString(R.string.playlist_imported)
+                else com.nocturne.player.i18n.AppLocale.localized(context).resources.getQuantityString(R.plurals.added_to_downloads, added, added)
             )
             _detection.value = summarize(found.resolved)
         }
@@ -327,7 +327,7 @@ private fun DetectionCard(detection: Detection, onDownload: () -> Unit, onRetry:
                         val parts = buildList {
                             add(androidx.compose.ui.res.pluralStringResource(R.plurals.songs_count, r.items.size, r.items.size))
                             if (detection.totalDurationMs > 0) add(formatTotalDuration(detection.totalDurationMs))
-                            if (detection.alreadyInLibrary > 0) add(stringResource(R.string.already_in_library, detection.alreadyInLibrary))
+                            if (detection.alreadyInLibrary > 0) add(androidx.compose.ui.res.pluralStringResource(R.plurals.already_in_library, detection.alreadyInLibrary, detection.alreadyInLibrary))
                         }
                         Text(parts.joinToString(" · "), style = NocturneType.Meta, color = NocturneColors.TextSecondary, maxLines = 2)
                     }
@@ -338,7 +338,7 @@ private fun DetectionCard(detection: Detection, onDownload: () -> Unit, onRetry:
                         detection.newCount == 0 && r.isPlaylist -> stringResource(R.string.import_playlist)
                         detection.newCount == 0 -> stringResource(R.string.all_in_library)
                         !r.isPlaylist -> stringResource(R.string.download_one)
-                        else -> stringResource(R.string.download_new, detection.newCount)
+                        else -> androidx.compose.ui.res.pluralStringResource(R.plurals.download_new, detection.newCount, detection.newCount)
                     },
                     onClick = onDownload,
                     icon = Lucide.Download,

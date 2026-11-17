@@ -22,8 +22,8 @@ android {
         applicationId = "com.nocturne.player"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
         buildConfigField("String", "NEWPIPE_EXTRACTOR_VERSION", "\"${libs.versions.newpipeExtractor.get()}\"")
         vectorDrawables { useSupportLibrary = true }
     }
@@ -135,6 +135,8 @@ dependencies {
     implementation(libs.coroutines.android)
     implementation(libs.coroutines.guava)
     implementation(libs.reorderable)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.glance.appwidget)
 
     implementation(libs.newpipe.extractor)
 

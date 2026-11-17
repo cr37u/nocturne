@@ -29,7 +29,8 @@ object DownloadNotifications {
     private const val AMBER = 0xFFF5B942.toInt()
     private var largeIcon: Bitmap? = null
 
-    fun ensureChannel(context: Context) {
+    fun ensureChannel(base: Context) {
+        val context = com.nocturne.player.i18n.AppLocale.localized(base)
         val nm = context.getSystemService(NotificationManager::class.java)
         if (nm.getNotificationChannel(CHANNEL_ID) == null) {
             nm.createNotificationChannel(
@@ -52,14 +53,15 @@ object DownloadNotifications {
         return bmp
     }
 
-    fun build(context: Context, stats: DownloadStats): Notification {
+    fun build(base: Context, stats: DownloadStats): Notification {
+        val context = com.nocturne.player.i18n.AppLocale.localized(base)
         ensureChannel(context)
         // "Se descarcă 4 melodii" = tracks downloading in parallel right now.
         val downloading = stats.active
         val title = when {
             stats.total == 0 || downloading == 0 -> context.getString(R.string.notif_preparing)
-            downloading == 1 -> context.getString(R.string.notif_downloading_one)
-            else -> context.getString(R.string.notif_downloading, downloading)
+
+            else -> context.resources.getQuantityString(R.plurals.notif_downloading, downloading, downloading)
         }
         val subtitle = if (stats.batchName != null) {
             context.getString(R.string.notif_subtitle, stats.done, stats.total, stats.batchName)

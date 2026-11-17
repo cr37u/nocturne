@@ -260,6 +260,17 @@ class PlayerConnection @Inject constructor(
         if (c.mediaItemCount == 1) c.prepare()
     }
 
+    /**
+     * Edited title/artist → every queued occurrence. replaceMediaItem keeps the same file URI, so
+     * ExoPlayer updates the metadata in place without interrupting playback; the session then
+     * refreshes the notification, lock screen (MediaMetadata) and widgets.
+     */
+    fun updateMetadata(track: TrackEntity) = withController { c ->
+        for (i in 0 until c.mediaItemCount) {
+            if (c.getMediaItemAt(i).mediaId == track.id) c.replaceMediaItem(i, track.toMediaItem())
+        }
+    }
+
     /** Removes every occurrence of a deleted track from the queue. */
     fun removeTrack(mediaId: String) = withController { c ->
         for (i in c.mediaItemCount - 1 downTo 0) {
