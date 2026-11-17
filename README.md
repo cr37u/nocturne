@@ -85,6 +85,23 @@ progress, "Up next" and an **Add link** button. The buttons work with the app cl
 
 </td>
 </tr>
+<tr>
+<td width="50%" valign="top">
+
+### Synced lyrics
+Tap the microphone in Now Playing: lyrics scroll with the song and the current line lights up.
+Tap any line to jump there. Lyrics stay in the song's own language (from [LRCLIB](https://lrclib.net)),
+are matched by title, artist and length, and are saved for offline listening.
+
+</td>
+<td width="50%" valign="top">
+
+### Swipe to skip
+Swipe the cover in Now Playing, or the mini-player, left for the next song and right for the
+previous one. The artwork follows your finger and slides into the next track.
+
+</td>
+</tr>
 </table>
 
 <p align="center">
@@ -106,7 +123,7 @@ SHA-256  ce:54:cd:36:5f:7c:f6:d4:f4:9d:bb:c9:c7:11:32:9f:ae:54:87:9d:13:fd:f1:48
 > On Samsung, Xiaomi and other aggressive battery savers, open **Setări → Optimizare baterie** once,
 > so music isn't stopped while the screen is off.
 
-The interface is in Romanian.
+The interface is in Romanian by default, with English and Russian a tap away.
 
 ## Nocturne on your computer
 
@@ -127,6 +144,8 @@ Get it from [cr37u/nocturne-desktop](https://github.com/cr37u/nocturne-desktop) 
 | **Playback** | AndroidX Media3: ExoPlayer, `MediaLibraryService`, `MediaController` |
 | **Extraction** | [NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor) |
 | **Downloads** | OkHttp range requests, Coroutines, WorkManager (foreground) |
+| **Lyrics** | [LRCLIB](https://lrclib.net) API (synced LRC), cached on device |
+| **Widgets** | Jetpack Glance |
 | **Storage** | Room; audio in `Android/data/<package>/files/music` |
 | **Architecture** | MVVM, `StateFlow`, Hilt |
 

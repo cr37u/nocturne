@@ -33,7 +33,7 @@ Install a release build (`./gradlew assembleRelease`) on a real phone and go thr
 - [ ] Create, rename and delete playlists. Favorited tracks appear in *Favorite*.
 - [ ] In Now Playing, drag to reorder the queue, remove items, and swipe down to close.
 
-## Version 1.1 — languages, metadata, widgets
+## Version 1.1 — languages, metadata, widgets, lyrics
 
 ### Update over the old install (migration)
 - [ ] Install 1.1 **over** 1.0 (no uninstall). Library, favorites, playlists ("Din YouTube" too), queue position and the audio files are all still there.
@@ -61,3 +61,14 @@ Install a release build (`./gradlew assembleRelease`) on a real phone and go thr
 - [ ] Let a track end with the app closed: the next track auto-plays and the widget shows it.
 - [ ] Tap the artwork → Now Playing opens. On 4×4, copy a YouTube link and tap **Adaugă link** → *Adaugă muzică* opens with the link.
 - [ ] The progress bar moves only while playing; paused, the widget doesn't update (no battery drain).
+
+### Lyrics
+- [ ] In Now Playing, tap the microphone: lyrics load (synced songs show times; the current line is highlighted and follows the song).
+- [ ] Tap a line: playback jumps to it.
+- [ ] Lyrics are in the song's own language (Russian songs in Russian), whatever the app language.
+- [ ] Open the same lyrics again in airplane mode: they show from the cache. A song never opened shows the offline message with **Retry**.
+- [ ] An instrumental shows "Instrumental"; an unknown song shows "No lyrics found".
+
+### Swipe to skip
+- [ ] In Now Playing, swipe the cover left → next song; right → previous. A short swipe springs back.
+- [ ] The same on the mini-player (artwork/title area); the play and next buttons still work normally.
