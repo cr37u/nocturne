@@ -17,6 +17,10 @@
 **Paste a YouTube link. Nocturne downloads the audio once and plays it offline,**<br>
 **with the screen off, from the lock screen, or over Bluetooth. No account, no API key, no servers.**
 
+<br>
+
+<a href="https://github.com/cr37u/nocturne-desktop"><img src="https://img.shields.io/badge/Also%20on-Windows%20%26%20Linux-7C3AED?style=for-the-badge&logo=windows&logoColor=white&labelColor=1C1C33" alt="Also on Windows & Linux"></a>
+
 </div>
 
 <br>
@@ -85,6 +89,17 @@ SHA-256  ce:54:cd:36:5f:7c:f6:d4:f4:9d:bb:c9:c7:11:32:9f:ae:54:87:9d:13:fd:f1:48
 > so music isn't stopped while the screen is off.
 
 The interface is in Romanian.
+
+## Nocturne on your computer
+
+The same player exists for **Windows and Linux**: same design, same YouTube links, everything offline, plus media keys,
+a tray icon, a desktop widget, a mini player and a Windows 11 Widgets board card.
+Get it from [cr37u/nocturne-desktop](https://github.com/cr37u/nocturne-desktop) →
+[latest release](https://github.com/cr37u/nocturne-desktop/releases/latest) (installer, portable zip or MSIX).
+
+<p align="center">
+  <a href="https://github.com/cr37u/nocturne-desktop"><img src="https://raw.githubusercontent.com/cr37u/nocturne-desktop/main/docs/images/banner.png" alt="Nocturne for Windows and Linux" width="80%"></a>
+</p>
 
 ## Under the hood
 
