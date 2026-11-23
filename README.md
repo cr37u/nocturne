@@ -130,7 +130,7 @@ The interface is in Romanian by default, with English and Russian a tap away.
 The same player exists for **Windows and Linux**: same design, same YouTube links, everything offline, plus media keys,
 a tray icon, a desktop widget, a mini player and a Windows 11 Widgets board card.
 Get it from [cr37u/nocturne-desktop](https://github.com/cr37u/nocturne-desktop) →
-[latest release](https://github.com/cr37u/nocturne-desktop/releases/latest) (installer, portable zip or MSIX).
+[latest release](https://github.com/cr37u/nocturne-desktop/releases/latest) (Windows installer, portable zip or MSIX; Linux AppImage).
 
 <p align="center">
   <a href="https://github.com/cr37u/nocturne-desktop"><img src="https://raw.githubusercontent.com/cr37u/nocturne-desktop/main/docs/images/banner.png" alt="Nocturne for Windows and Linux" width="80%"></a>
