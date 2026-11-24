@@ -20,6 +20,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -77,6 +79,7 @@ fun LazyListScope.downloadsSection(
     onResumeAll: () -> Unit,
     onRetry: (Long) -> Unit,
     onClearFinished: () -> Unit,
+    onClearAll: (() -> Unit)? = null,
     showTitle: Boolean = true,
     horizontalPadding: Dp = 20.dp,
 ) {
@@ -101,6 +104,29 @@ fun LazyListScope.downloadsSection(
                     stats.hasRunnable -> SmallButton(stringResource(R.string.pause_all), onPauseAll)
                     stats.hasPaused -> SmallButton(stringResource(R.string.resume_all), onResumeAll)
                     items.isNotEmpty() -> SmallButton(stringResource(R.string.clear_finished), onClearFinished)
+                }
+                if (onClearAll != null && items.isNotEmpty()) {
+                    var confirm by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+                    Spacer(Modifier.width(8.dp))
+                    Box(
+                        Modifier
+                            .size(40.dp)
+                            .clip(NocturneShapes.IconButton)
+                            .background(NocturneColors.Surface)
+                            .pressable(onClick = { confirm = true }, label = stringResource(R.string.clear_all)),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(Lucide.Trash, stringResource(R.string.clear_all), tint = NocturneColors.Error, modifier = Modifier.size(18.dp))
+                    }
+                    if (confirm) {
+                        com.nocturne.player.ui.components.ConfirmDialog(
+                            title = stringResource(R.string.clear_all_title),
+                            body = stringResource(R.string.clear_all_body),
+                            confirmLabel = stringResource(R.string.clear_all),
+                            onDismiss = { confirm = false },
+                            onConfirm = { confirm = false; onClearAll() },
+                        )
+                    }
                 }
             }
             if (stats.total > 0) {

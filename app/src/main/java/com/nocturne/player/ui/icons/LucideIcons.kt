@@ -95,6 +95,7 @@ object Lucide {
         icon("globe", "M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20z", "M2 12h20", "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z")
     }
     val Plus by lazy { icon("plus", "M5 12h14", "M12 5v14") }
+    val Minus by lazy { icon("minus", "M5 12h14") }
     val Volume by lazy {
         icon("volume-2", "M11 5L6 9H2v6h4l5 4V5z", "M15.54 8.46a5 5 0 0 1 0 7.07", "M19.07 4.93a10 10 0 0 1 0 14.14")
     }

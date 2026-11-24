@@ -166,6 +166,13 @@ class DownloadRepository @Inject constructor(
 
     suspend fun clearFinished() = dao.clearFinished()
 
+    /** "Șterge tot": cancels running / queued / failed downloads and empties the list. Songs already
+     *  downloaded stay in the library. */
+    suspend fun clearAll() = withContext(Dispatchers.IO) {
+        cancelAll()
+        dao.clearFinished()
+    }
+
     companion object {
         const val WORK_NAME = "nocturne-downloads"
         const val MAX_PARALLEL = 4

@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.coroutineContext
 
 /**
- * Runs the whole download queue: up to [DownloadRepository.MAX_PARALLEL] tracks at once,
+ * Runs the whole download queue: up to [AppPrefs.parallelDownloads] tracks at once (Setări),
  * each fetched with sequential HTTP range requests (resumable), 3 attempts per track.
  * Runs as a foreground (dataSync) worker so it survives leaving the app.
  */
@@ -56,6 +56,7 @@ class DownloadWorker @AssistedInject constructor(
     private val resolver: LinkResolver,
     private val paths: StoragePaths,
     private val client: OkHttpClient,
+    private val prefs: com.nocturne.player.data.AppPrefs,
 ) : CoroutineWorker(appContext, params) {
 
     private val running = ConcurrentHashMap.newKeySet<Long>()
@@ -70,7 +71,6 @@ class DownloadWorker @AssistedInject constructor(
 
         coroutineScope {
             val notifier = launch { notificationLoop() }
-            val semaphore = Semaphore(DownloadRepository.MAX_PARALLEL)
             while (isActive) {
                 val next = dao.queued().filter { it.id !in running }
                 if (next.isEmpty()) {
@@ -79,7 +79,8 @@ class DownloadWorker @AssistedInject constructor(
                     continue
                 }
                 for (d in next) {
-                    if (!semaphore.tryAcquire()) break
+                    // Read every time: a change in Setări applies to the running queue.
+                    if (running.size >= prefs.parallelDownloads) break
                     running += d.id
                     launch(Dispatchers.IO) {
                         try {
@@ -87,7 +88,6 @@ class DownloadWorker @AssistedInject constructor(
                         } finally {
                             running -= d.id
                             repo.clearProgress(d.id)
-                            semaphore.release()
                         }
                     }
                 }

@@ -31,6 +31,12 @@ enum class SortOrder { RECENT, TITLE, DURATION }
 
 @Singleton
 class AppPrefs @Inject constructor(@ApplicationContext context: Context) {
+    companion object {
+        const val MIN_PARALLEL = 1
+        const val MAX_PARALLEL = 10
+        const val DEFAULT_PARALLEL = 4
+    }
+
     private val prefs = context.getSharedPreferences("nocturne_prefs", Context.MODE_PRIVATE)
 
     var batteryPromptShown: Boolean
@@ -45,6 +51,11 @@ class AppPrefs @Inject constructor(@ApplicationContext context: Context) {
     var keepPlayingWhenClosed: Boolean
         get() = prefs.getBoolean("keep_playing_closed", false)
         set(v) = prefs.edit().putBoolean("keep_playing_closed", v).apply()
+
+    /** How many tracks download at the same time (1–10). */
+    var parallelDownloads: Int
+        get() = prefs.getInt("parallel_downloads", DEFAULT_PARALLEL).coerceIn(MIN_PARALLEL, MAX_PARALLEL)
+        set(v) = prefs.edit().putInt("parallel_downloads", v.coerceIn(MIN_PARALLEL, MAX_PARALLEL)).apply()
 
     var lastOfferedClipboard: String?
         get() = prefs.getString("last_clip", null)

@@ -33,6 +33,7 @@ class NocturneApp : Application(), Configuration.Provider, ImageLoaderFactory {
         // (Changing it would only affect new downloads; saved titles are never re-fetched.)
         NewPipe.init(NewPipeDownloader(okHttpClient), METADATA_LOCALIZATION, METADATA_COUNTRY)
         DownloadNotifications.ensureChannel(this)
+        com.nocturne.player.download.QuickShareActivity.publishShareShortcut(this)
     }
 
     /** Android 13+: the language can also change from system Settings → App languages. */

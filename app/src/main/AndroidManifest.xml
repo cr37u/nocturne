@@ -54,6 +54,9 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
             <!-- Share → Nocturne from the YouTube app / browser -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -71,6 +74,23 @@
                 <data android:host="m.youtube.com" />
                 <data android:host="music.youtube.com" />
                 <data android:host="youtu.be" />
+            </intent-filter>
+        </activity>
+
+        <!-- Share → "Descarcă în Nocturne": starts the download in the background, no UI -->
+        <activity
+            android:name=".download.QuickShareActivity"
+            android:exported="true"
+            android:label="@string/share_download_label"
+            android:icon="@mipmap/ic_launcher"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity="">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
 

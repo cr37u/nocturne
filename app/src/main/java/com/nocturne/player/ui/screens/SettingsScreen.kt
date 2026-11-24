@@ -118,6 +118,11 @@ class SettingsViewModel @Inject constructor(
         prefs.keepPlayingWhenClosed = v; keepPlaying.value = v
     }
 
+    val parallel = kotlinx.coroutines.flow.MutableStateFlow(prefs.parallelDownloads)
+    fun setParallel(v: Int) {
+        prefs.parallelDownloads = v; parallel.value = prefs.parallelDownloads
+    }
+
     val count = tracks.observeCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0)
     val size = tracks.observeTotalSize().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0L)
 }
@@ -128,6 +133,7 @@ fun SettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewModel()) 
     val count by vm.count.collectAsStateWithLifecycle()
     val size by vm.size.collectAsStateWithLifecycle()
     val keepPlaying by vm.keepPlaying.collectAsStateWithLifecycle()
+    val parallel by vm.parallel.collectAsStateWithLifecycle()
     var tick by remember { mutableIntStateOf(0) }
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { tick++ }
     val ignoring = remember(tick) { BackgroundHelper.isIgnoringOptimizations(context) }
@@ -211,6 +217,38 @@ fun SettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewModel()) 
                 subtitle = stringResource(if (notificationsOn) R.string.notifications_on else R.string.notifications_off),
                 accent = notificationsOn,
                 onClick = { BackgroundHelper.openNotificationSettings(context) },
+            )
+        }
+
+        Section(stringResource(R.string.downloads))
+        SettingsCard {
+            SettingsRow(
+                icon = Lucide.Download,
+                title = stringResource(R.string.parallel_downloads_title),
+                subtitle = stringResource(R.string.parallel_downloads_body),
+                onClick = null,
+                accent = parallel > com.nocturne.player.data.AppPrefs.DEFAULT_PARALLEL,
+                trailing = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton44(
+                            Lucide.Minus, stringResource(R.string.cd_parallel_less),
+                            onClick = { vm.setParallel(parallel - 1) },
+                            enabled = parallel > com.nocturne.player.data.AppPrefs.MIN_PARALLEL,
+                        )
+                        Text(
+                            parallel.toString(),
+                            style = NocturneType.Section,
+                            color = NocturneColors.TextPrimary,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            modifier = Modifier.width(28.dp),
+                        )
+                        IconButton44(
+                            Lucide.Plus, stringResource(R.string.cd_parallel_more),
+                            onClick = { vm.setParallel(parallel + 1) },
+                            enabled = parallel < com.nocturne.player.data.AppPrefs.MAX_PARALLEL,
+                        )
+                    }
+                },
             )
         }
 

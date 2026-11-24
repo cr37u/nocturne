@@ -124,6 +124,7 @@ class DownloadsViewModel @Inject constructor(
     fun resumeAll() = viewModelScope.launch { repo.resumeAll() }
     fun retry(id: Long) = viewModelScope.launch { repo.retry(id) }
     fun clearFinished() = viewModelScope.launch { repo.clearFinished() }
+    fun clearAll() = viewModelScope.launch { repo.clearAll() }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)

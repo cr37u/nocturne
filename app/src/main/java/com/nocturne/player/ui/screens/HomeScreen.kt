@@ -511,6 +511,7 @@ private fun DownloadsTab(
             onResumeAll = vm::resumeAll,
             onRetry = vm::retry,
             onClearFinished = vm::clearFinished,
+            onClearAll = { vm.clearAll() },
             showTitle = false,
         )
     }

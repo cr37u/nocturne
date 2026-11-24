@@ -221,4 +221,13 @@
     <string name="lyrics_not_found">No lyrics found for this song.</string>
     <string name="lyrics_instrumental">Instrumental</string>
     <string name="lyrics_source">Lyrics: LRCLIB · saved for offline listening</string>
+    <string name="clear_all">Clear all</string>
+    <string name="clear_all_title">Clear the download list?</string>
+    <string name="clear_all_body">Running, queued and failed downloads are cancelled. Songs already downloaded stay in your library.</string>
+    <string name="parallel_downloads_title">Parallel downloads</string>
+    <string name="parallel_downloads_body">How many songs download at once (1–10). More is faster, but YouTube may block you for a while.</string>
+    <string name="cd_parallel_less">Fewer</string>
+    <string name="cd_parallel_more">More</string>
+    <string name="share_download_label">Download in Nocturne</string>
+    <string name="quick_download_started">Downloading in Nocturne…</string>
 </resources>

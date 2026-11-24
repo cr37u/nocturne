@@ -232,4 +232,13 @@
     <string name="lyrics_not_found">Текст для этой песни не найден.</string>
     <string name="lyrics_instrumental">Инструментальная композиция</string>
     <string name="lyrics_source">Текст: LRCLIB · сохранён для офлайн-прослушивания</string>
+    <string name="clear_all">Очистить всё</string>
+    <string name="clear_all_title">Очистить список загрузок?</string>
+    <string name="clear_all_body">Текущие, ожидающие и неудачные загрузки отменяются. Уже скачанные песни остаются в библиотеке.</string>
+    <string name="parallel_downloads_title">Параллельные загрузки</string>
+    <string name="parallel_downloads_body">Сколько песен скачивается одновременно (1–10). Больше — быстрее, но YouTube может временно заблокировать.</string>
+    <string name="cd_parallel_less">Меньше</string>
+    <string name="cd_parallel_more">Больше</string>
+    <string name="share_download_label">Скачать в Nocturne</string>
+    <string name="quick_download_started">Скачивается в Nocturne…</string>
 </resources>

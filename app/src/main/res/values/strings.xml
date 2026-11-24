@@ -233,4 +233,13 @@
     <string name="lyrics_not_found">Nu am găsit versuri pentru această melodie.</string>
     <string name="lyrics_instrumental">Piesă instrumentală</string>
     <string name="lyrics_source">Versuri: LRCLIB · salvate pentru ascultare offline</string>
+    <string name="clear_all">Șterge tot</string>
+    <string name="clear_all_title">Golești lista de descărcări?</string>
+    <string name="clear_all_body">Descărcările în curs, în așteptare și eșuate se anulează. Melodiile deja descărcate rămân în bibliotecă.</string>
+    <string name="parallel_downloads_title">Descărcări în paralel</string>
+    <string name="parallel_downloads_body">Câte melodii se descarcă deodată (1–10). Mai multe merg mai repede, dar YouTube poate bloca temporar.</string>
+    <string name="cd_parallel_less">Mai puține</string>
+    <string name="cd_parallel_more">Mai multe</string>
+    <string name="share_download_label">Descarcă în Nocturne</string>
+    <string name="quick_download_started">Se descarcă în Nocturne…</string>
 </resources>

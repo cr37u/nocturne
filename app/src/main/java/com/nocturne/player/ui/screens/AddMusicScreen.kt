@@ -245,6 +245,7 @@ fun AddMusicScreen(
             onResumeAll = downloadsVm::resumeAll,
             onRetry = downloadsVm::retry,
             onClearFinished = downloadsVm::clearFinished,
+            onClearAll = { downloadsVm.clearAll() },
         )
     }
 }
